@@ -1,0 +1,14 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: asifshaikh0393@gmail.com
+    password: xwwuvtuotgeyhvuq
+    properties:
+      smtp:
+        auth: true
+        starttles:
+          enable: true
+          required: true
+         
+     

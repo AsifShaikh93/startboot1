@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div id="content holder" th:with="token=null">
+<div th:if="${token==null}">
+<form th:action="token" method="post" style="margin-left:20%;margin-top:50px" id="emailform">
+<h1 style="margin-left:auto;margin-right:auto"> Generate token to proceed</h1>
+<input type="text" name="email" id="email" style="display:block;margin:10px;width:50%" >
+<input type="text" name="password" id="password" style="display:block;margin:10px;width:50%" >
+<input type="submit" value="generateToken" style="margin-left:10px">
+</form>
+</div>
+
+<div th:unless="${token==null}">
+<h1> Your generated token is </h1>
+<h2 th:text="${token}"></h2>
+</div>
+
+
+
+</div>
+
+<h1 th:text="${token}">abc</h1>
+<script>
+
+ var form = document.getElementById('emailform');
+form.onsubmit = function(event){
+	    console.log("hello");
+	    event.preventDefault();
+        var xhr = new XMLHttpRequest();
+        var formData = new FormData(form);
+        //open the request
+        xhr.open('POST','http://localhost:8080/token');
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        //send the form data
+        xhr.send(JSON.stringify(Object.fromEntries(formData)));
+
+         xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+            	//form.reset(); //reset form after AJAX success or do something else
+            	var respnse=JSON.parse(xhr.responseText);
+            	/* console.log(respnse.jwtToken); */
+            	localStorage.setItem("token",respnse.jwtToken);
+            	/* console.log(localStorage.getItem("token")); */
+                window.location.replace("http://localhost:8080/dummy"); 
+            	
+            }
+        }
+        //Fail the onsubmit to avoid page refresh.
+        return false;  
+    } 
+
+</script>
+</body>
+</html>

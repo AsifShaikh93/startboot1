@@ -1,0 +1,338 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta  >
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<link rel="stylesheet" type="text/css" href="contact.css"/>
+<script type="text/javascript" src="" th:src="@{/js/our.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vide/0.5.1/jquery.vide.min.js"></script>
+<!-- <script>
+$(function(){
+	$('#anchorlinktobeappended').click(function(){
+		
+		window.location=$(this).attr('href')+$('#pattern').val();
+		return false;
+	});
+	
+});
+</script> -->
+<script>
+$(function(){
+    $('#anchorlinktobeappended').keyup(function(){
+    	var pattrn='';
+    	var pattrn=pattrn+($('pattern').next().val());
+    	window.location=$(this).attr('href')+pattrn;
+    	return false;
+    });
+});
+
+</script>
+
+</head>
+<body style="background-color:#f2f2f2;">
+
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary p-4 mb-5" th:fragment="headr" >
+  <div class="container-fluid" >
+    <a class="navbar-brand" href="#" style="font-size:30px;">Maxxim Visa</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/contact">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" >Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="false">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" >
+        <input class="form-control me-2" id="pattern" type="search" placeholder="Search" aria-label="Search">
+        <!-- <button class="btn btn-warning" type="submit"> --> 
+        <!-- <a href="/personsforsearchinput/" id="anchorlinktobeappended" style="color:black;text-decoration:none;font-weight:bold;" >Search</a> -->
+        <a href="/personsforsearchinput/" id="anchorlinktobeappended"  ><button class="btn btn-dark">Search</button></a>
+        <!-- </button> -->
+         
+      </form>
+    </div>
+  </div>
+</nav>
+     <div th:with="userexist=false">
+      <form  th:if="${userexist}" action="/person" method="post" class="text-center m-5" id="myform" name="myform" enctype="multipart/form-data">
+         <label  id="Search" class="alert alert-primary" style="width:40%">  Enter details to Login...</label>
+       <!--    <input name="name" placeholder="Enter first name" class="form-control mt-2 mb-2" style="width:  40%; margin-left:30%; " type="text"  aria-label="Search">
+         <input name="sname" placeholder="Enter last name" class="form-control mt-2 mb-2" style="width: 40%; margin-left:30%; " type="text"  aria-label="Search">
+         -->
+        
+         <input type="email" placeholder="Enter email address" class="form-control mt-2 mb-2" style="width: 40%; margin-left:30%;" name="emailid" id="emailid" >
+         <input type="password" placeholder="Enter password" class="form-control mt-2 mb-2" style="width: 40%; margin-left:30%;" name="password" id="password" >
+        <!--  <input type="file" class="form-control mt-2 mb-2" style="width: 40%; margin-left:30%;" name="profile" id="profile" > -->
+        
+        <button class="btn btn-outline-success m-2" type="button">Login</button>
+      </form>
+     
+
+      <form th:unless="${userexist}" action="/person" method="post" class="text-center m-5" id="myform" name="myform" enctype="multipart/form-data">
+         <label th:unless="${userexist}" class="alert alert-danger" id="Search" style="width:  40%;"> You are not registered. Register first</label>
+         <input name="name" placeholder="Enter first name" class="form-control mt-2 mb-2" style="width:  40%; margin-left:30%; " type="text"  aria-label="Search">
+         <input name="sname" placeholder="Enter last name" class="form-control mt-2 mb-2" style="width: 40%; margin-left:30%; " type="text"  aria-label="Search">
+        
+        
+         <input type="email" placeholder="Enter email address" class="form-control mt-2 mb-2" style="width: 40%; margin-left:30%;" name="emailid" id="emailid" >
+         <input type="password" placeholder="Enter password" class="form-control mt-2 mb-2" style="width: 40%; margin-left:30%;" name="password" id="password" >
+          <input type="file" class="form-control mt-2 mb-2" style="width: 40%; margin-left:30%;" name="profile" id="profile" >
+        
+        <button class="btn btn-outline-success m-2" type="submit">Register</button>
+        
+      </form>
+     </div>  
+
+<div class="row m-5" >
+  <div class="col-sm-3" style="margin-left:auto;margin-right:auto;" >
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3" style="margin-left:auto;margin-right:auto;">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3" style="margin-left:auto;margin-right:auto;">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row m-5">
+  <div class="col-sm-3 offset-1" style="margin-left:auto;margin-right:auto;">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3" style="margin-left:auto;margin-right:auto;">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3" style="margin-left:auto;margin-right:auto;">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header style="margin-top: 150px;">
+    
+
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center mt-2">
+      <h1 class="display-4 fw-normal">Pricing</h1>
+      <p class="fs-5 text-muted">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+    </div>
+  </header>
+
+<div class="row row-cols-1 row-cols-md-3 m-4 text-center">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Free</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>10 users included</li>
+              <li>2 GB of storage</li>
+              <li>Email support</li>
+              <li>Help center access</li>
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Pro</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>20 users included</li>
+              <li>10 GB of storage</li>
+              <li>Priority email support</li>
+              <li>Help center access</li>
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+          <div class="card-header py-3 text-white bg-primary border-primary">
+            <h4 class="my-0 fw-normal">Enterprise</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>30 users included</li>
+              <li>15 GB of storage</li>
+              <li>Phone and email support</li>
+              <li>Help center access</li>
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="p-5 mt-5 text-white bg-primary"   >
+  <footer class="">
+    <div class="row">
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column ">
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">Home</a></li>
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">Features</a></li>
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">Pricing</a></li>
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">FAQs</a></li>
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Pricing</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">FAQs</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Pricing</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">FAQs</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col-4 offset-1">
+        <form id="emailform">
+          <h5>Subscribe to our newsletter</h5>
+          <p>Monthly digest of whats new and exciting from us.</p>
+          <div >
+            <label for="newsletter1" class="visually-hidden">Email address</label>
+            <input id="newsletter1" name="to" type="text" class="form-control m-1" placeholder="Recepient email address">
+            
+            <input id="subject" name="subject" type="text" class="form-control m-1" placeholder="enter subject">
+            <input id="body" name="body" type="text" class="form-control m-1" placeholder="enter message">
+            <button class="btn btn-dark m-1" type="submit" style="width:35%;">Send Email</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between py-4 my-4 border-top" style="height:40px">
+      <p>&copy; 2021 Company, Inc. All rights reserved.</p>
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+
+
+    <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script  src="contact.js"></script>
+<script>
+
+ var form = document.getElementById('emailform');
+form.onsubmit = function(event){
+        var xhr = new XMLHttpRequest();
+        var formData = new FormData(form);
+        //open the request
+        xhr.open('POST','http://localhost:8080/sendMail');
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        //send the form data
+        xhr.send(JSON.stringify(Object.fromEntries(formData)));
+
+         xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+            	form.reset(); //reset form after AJAX success or do something else
+                window.location.replace("http://localhost:8080/home"); 
+            }
+        }
+        //Fail the onsubmit to avoid page refresh.
+        return false;  
+    } 
+
+</script>
+</body>
+</html>
+
+<!-- server.error.whitelabel.enabled=false
+
+spring.thymeleaf.encoding=UTF-8
+spring.thymeleaf.servlet.content-type=application/x-www-form-urlencoded
+spring.thymeleaf.enabled=true 
+
+spring.thymeleaf.servlet.content-type=text/html; charset=utf-8
+
+spring.thymeleaf.servlet.content-type=application/x-www-form-urlencoded;charset=UTF-8-->

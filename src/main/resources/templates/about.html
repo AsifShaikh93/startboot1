@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<link rel="stylesheet" type="text/css" href="contact.css"/>
+<script src="https://kit.fontawesome.com/739f41e008.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="" th:src="@{/js/our.min.js}"></script>
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(function(){
+	$('#anchorlinktobeappended').click(function(){
+		
+		/* window.location="https://www.google.com"; */
+		window.location=$(this).attr('href')+$('#pattern').val();
+		return false;
+	});
+	
+});
+</script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary p-4 mb-5"  >
+  <div class="container-fluid" >
+    <a class="navbar-brand" href="#" style="font-size:30px;">Maxxim Visa</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/contact">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" >Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="false">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" >
+        <input class="form-control me-2" id="pattern" type="search" placeholder="Search" aria-label="Search">
+        <!-- <button class="btn btn-warning" type="submit"> --> 
+        <a href="/personsforsearchinput/" id="anchorlinktobeappended"  ><button class="btn btn-dark">Search</button></a>
+        <!-- </button> -->
+         
+      </form>
+    </div>
+  </div>
+</nav>
+
+<!-- <div th:replace="~{contact::headr}"> -->
+
+</div>
+<!-- <h2 class="text-center">All persons in the database</h2>
+<h3 th:text="${person}"></h3>
+<h3 th:text="${greet}"></h3>
+<h3 th:text="${person.name}"></h3>
+<h3 th:text="${person.sname}"></h3> -->
+<!-- <h2 th:text="${person.name}"></h2> -->
+
+<div class="container md-6" th:if="${sizeofsearchresult>0}">
+  <h2 th:text="'Search result from the database : '+${sizeofsearchresult}+'...'"></h2>
+	<table class="table table-dark table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Sr.No</th>
+				<th scope="col">NAME</th>
+				<th scope="col">sname</th>
+				<th scope="col">AGE</th>
+				<th scope="col">Email</th>
+				<th scope="col">Password</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  th:each="perrsn,i : ${allpersonsaftermatch}">
+				<th th:text=${i.count} scope="row"></th>
+				<td> <img alt="" style="height:25px;width:25px;border-radius:50%;" class="m-1" src="" th:src="'/images/'+${perrsn.profilename}"><span th:text="${perrsn.name}"></span></td>
+				<td th:text="${perrsn.sname}">abc</td>
+				<td th:text="${perrsn.age}">2.41</td>
+				<td th:text="${perrsn.emailid}">abc</td>
+				<td th:text="${perrsn.password}">abc</td>
+				
+                <td><a th:href="'/deleteentry/'+${perrsn.age}" style="color:white" ><i class="fa fa-trash m-1"></i></a><a th:href="'/updateentry/'+${perrsn.age}" style="color:white" ><i class="fa fa-edit m-1"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+   </div>
+
+<!-- <h2 th:text="${size}"></h2> -->
+
+   <div class="container md-6">
+   
+	<table class="table table-dark table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Sr.No</th>
+				<th scope="col">NAME</th>
+				<th scope="col">sname</th>
+				<th scope="col">AGE</th>
+				<th scope="col">Email</th>
+				<th scope="col">Password</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  th:each="persn,i : ${allpersons}">
+				<th th:text=${i.count} scope="row"></th>
+				<td> <img alt="" style="height:25px;width:25px;border-radius:50%;" class="m-1" src="" th:src="'/images/'+${persn.profilename}"><span th:text="${persn.name}"></span></td>
+				<td th:text="${persn.sname}"></td>
+				<td th:text="${persn.age}"></td>
+				<td th:text="${persn.emailid}">abc</td>
+				<td th:text="${persn.password}">abc</td>
+                <td><a th:href="'/deleteentry/'+${persn.age}" style="color:white" ><i class="fa fa-trash m-1"></i></a><a th:href="'/updateentry/'+${persn.age}" style="color:white" ><i class="fa fa-edit m-1"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+   </div>	
+
+<!-- <h1 th:text="${allpersons}"></h1> -->
+ <div class="p-5 mt-5 text-white bg-primary"  >
+  <footer class="py-5">
+    <div class="row">
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column ">
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">Home</a></li>
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">Features</a></li>
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">Pricing</a></li>
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">FAQs</a></li>
+          <li class="nav-item mb-2 "><a href="#" class="nav-link p-0 text-white">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Pricing</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">FAQs</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Pricing</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">FAQs</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col-4 offset-1">
+        <form action="/sendMail">
+          <h5>Subscribe to our newsletter</h5>
+          <p>Monthly digest of whats new and exciting from us.</p>
+          <div class="d-flex w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">Email address</label>
+            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+            <button class="btn btn-primary" type="submit" style="width:35%;">Send Email</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between py-4 my-4 border-top" style="height:40px">
+      <p>&copy; 2021 Company, Inc. All rights reserved.</p>
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+
+
+    <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+
+
+</body>
+</html>
