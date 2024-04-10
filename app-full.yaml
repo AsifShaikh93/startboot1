@@ -22,7 +22,7 @@ spec:
             - name: DB_NAME
               value: asif
             - name: DB_HOST
-              value: 10.244.29.151
+              value: 10.244.29.152   
             - name: DB_USER
               value: root
             - name: DB_PASSWORD
