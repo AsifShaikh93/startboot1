@@ -21,6 +21,8 @@ spec:
           env:
             - name: DB_NAME
               value: asif
+            - name: DB_HOST
+              value: $HOST  
             - name: DB_USER
               value: root
             - name: DB_PASSWORD
