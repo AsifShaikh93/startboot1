@@ -41,10 +41,11 @@ public class JwtController {
 	/*public void login(@RequestBody JwtRequest request,Model model) {*/
 		
 		
-        this.doAuthenticate(request.getEmail(), request.getPassword());
+	 this.doAuthenticate(request.getEmail(), request.getPassword()); 
 
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+        
         String token = this.jwtutil.generateToken(userDetails);
         
         //model.addAttribute(token, token);

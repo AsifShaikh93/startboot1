@@ -1,6 +1,7 @@
 FROM openjdk:17-alpine
 
-EXPOSE 80
+
+EXPOSE 8081
 
 ADD target/startboot1.jar startboot1.jar
 

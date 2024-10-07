@@ -1,21 +1,27 @@
 package com.startboot1.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 /*import java.util.ArrayList;
 import java.util.Iterator;*/
 /*import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;*/
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;*/
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.PutMapping;
 //import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,12 +34,19 @@ import com.startboot1.entity.Person;
 
 @RestController
 /* @Controller */
+@CrossOrigin
 public class ReestController {
 
 	@Autowired
 	public PersonRepository personrepository;
 	
-	
+	 @PostMapping("/testprsn")
+	  public Person merntest(@RequestBody Person person) {
+		  //person.setProfilename("test");
+		  System.out.println(person);
+		  Person savedprsn = personrepository.save(person);
+		  return savedprsn;
+	  }
 	
 	@GetMapping("/getallpersons")
 	 public List<Person> getallpersons(Model model) throws IOException { 
@@ -65,7 +78,14 @@ public class ReestController {
 		 * 
 		 * model.addAttribute("allprofiles",allprofiles);
 		 */
-		model.addAttribute("allpersons1",allpersons1); 
+		model.addAttribute("person-sg","hello this is to check model attribute"); 
+		
+		
+		Map<Person, String> umap=new HashMap<Person, String>();
+		for(final Person prsn: allpersons1) {
+			
+			umap.put(prsn, "some text for "+prsn.getName());
+		}
 		
 		/* System.out.println(size); */
 			

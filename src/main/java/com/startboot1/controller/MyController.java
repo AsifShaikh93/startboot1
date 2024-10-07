@@ -29,11 +29,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.web.accept.MappingMediaTypeFileExtensionResolver;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +47,7 @@ import com.startboot1.entity.Person;
 //import jakarta.persistence.criteria.Path;
 
 @Controller
+@CrossOrigin
 public class MyController {
 
 	@Autowired
@@ -67,7 +70,13 @@ public class MyController {
 	 * 
 	 * return "about"; }
 	 */
-	                                 
+	    
+	@RequestMapping("/test")
+	public String loadTest() {
+		
+		return "test";
+	}
+	
 	@RequestMapping("/login")
 	public String getlogin() {
 		return "login";
@@ -124,10 +133,10 @@ public class MyController {
 	  // System.out.println(result); // model.addAttribute("person", result); //
 	  model.addAttribute("greet","yes we have successfully implemented it");
 	  
-	  //final String uploadurl1=new ClassPathResource("/static").getFile().getAbsolutePath();
+	  final String uploadurl1=new ClassPathResource("/static").getFile().getAbsolutePath();
 	 //File file=new File("/home/ubuntu/deployed-proj-on-aws/BOOT-INF/classes/static");
 	//  String uploadurl2 = file.getAbsolutePath();
-	  final String uploadurl2="/home/ubuntu/deployed-proj-on-aws/BOOT-INF/classes/static";
+	  //final String uploadurl2="/home/ubuntu/deployed-proj-on-aws/BOOT-INF/classes/static";
 	 // D:\All-boot-projects\startboot1\target\classes\static\images
 		/*
 		 * Files.copy(profile.getInputStream(), java.nio.file.Path.of(
@@ -150,14 +159,15 @@ public class MyController {
 		
 		  System.out.println(profile); 
 		  InputStream is = profile.getInputStream(); 
-		 // Path path1 =java.nio.file.Path.of(uploadurl1+File.separator+profile.getOriginalFilename()); 
-		  Path path2 =java.nio.file.Path.of(uploadurl2+File.separator+profile.getOriginalFilename()); 
-		  //Files.copy(is,path1,StandardCopyOption.REPLACE_EXISTING);
-		  Files.copy(is,path2,StandardCopyOption.REPLACE_EXISTING);
-		 // System.out.println(uploadurl1+File.separator+profile.getOriginalFilename());
-		  System.out.println(uploadurl2+File.separator+profile.getOriginalFilename());
-		  //System.out.println(path1); 
-		  System.out.println(path2); 
+		  Path path1 =java.nio.file.Path.of(uploadurl1+File.separator+profile.getOriginalFilename()); 
+		//  Path path2 =java.nio.file.Path.of(uploadurl2+File.separator+profile.getOriginalFilename()); 
+		  Files.copy(is,path1,StandardCopyOption.REPLACE_EXISTING);
+		 // Files.copy(is,path2,StandardCopyOption.REPLACE_EXISTING);
+		   System.out.println(uploadurl1+File.separator+profile.getOriginalFilename());
+		 // System.out.println(uploadurl2+File.separator+profile.getOriginalFilename());
+		   System.out.println(path1); 
+		  
+		 // System.out.println(path2); 
 		  is.close();
 		 
 	  //executeGet("http://localhost:8080/getallpersons", "");
@@ -171,6 +181,9 @@ public class MyController {
 	  
 	  return "about"; 
 	  }
+	  
+	 
+	  
 	 
 	@GetMapping("/personforactions")
 	public String personforactions(Model model) throws Exception, InterruptedException  {
