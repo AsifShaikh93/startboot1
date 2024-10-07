@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: startboot1-deploy
+spec:
+  selector:
+    matchLabels:
+      app: startboot1
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: startboot1
+    spec:
+      containers:
+        - name: startboot1
+          image: asif1993/startboot1:1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_NAME
+              value: asif
+            - name: DB_HOST
+              value: 10.244.29.142
+            - name: DB_USER
+              value: root
+            - name: DB_PASSWORD
+              value: root
+             
+              
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: startboot1-svc
+spec:
+  selector:
+    app: startboot1
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  type: NodePort                                     
