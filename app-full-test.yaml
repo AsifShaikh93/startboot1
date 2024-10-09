@@ -22,7 +22,7 @@ spec:
             - name: SERVER_PORT
               value: "8081"
             - name: DB_NAME
-              value: asif
+              value: mysql
             - name: DB_HOST
               value: mysql
             - name: DB_USER
