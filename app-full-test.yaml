@@ -14,21 +14,19 @@ spec:
     spec:
       containers:
         - name: startboot1
-          image: asif1993/docker-asif1993:startboot1
-          imagePullPolicy: IfNotPresent
+          image: asif1993/startboot1:1.0
+          imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 8081
           env:
             - name: DB_NAME
               value: asif
             - name: DB_HOST
-              value: 10.244.0.4
+              value: mysql
             - name: DB_USER
               value: root
             - name: DB_PASSWORD
-              value: root
-            - name: SPRING_PROFILES_ACTIVE
-              value: prod             
+              value: root           
               
 ---
 
@@ -41,6 +39,6 @@ spec:
     app: startboot1
   ports:
     - protocol: "TCP"
-      port: 8080
-      targetPort: 8080
-  type: LoadBalancer                                     
+      port: 8081
+      targetPort: 8081
+  type: NodePort                                     
