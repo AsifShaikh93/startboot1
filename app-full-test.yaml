@@ -14,11 +14,13 @@ spec:
     spec:
       containers:
         - name: startboot1
-          image: asif1993/startboot1:1.0
+          image: asif1993/startboot1:1.1
           imagePullPolicy: Always
           ports:
             - containerPort: 8081
           env:
+            - name: SERVER_PORT
+              value: 8081
             - name: DB_NAME
               value: asif
             - name: DB_HOST
