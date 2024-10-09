@@ -20,7 +20,7 @@ spec:
             - containerPort: 8081
           env:
             - name: SERVER_PORT
-              value: 8081
+              value: "8081"
             - name: DB_NAME
               value: asif
             - name: DB_HOST
@@ -43,4 +43,4 @@ spec:
     - protocol: "TCP"
       port: 8081
       targetPort: 8081
-  type: NodePort                                     
+  type: LoadBalancer                                     
