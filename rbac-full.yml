@@ -56,8 +56,10 @@ roleRef:
   kind: Role
   name: app-role 
 subjects:
-  kind: ServiceAccount
+- kind: ServiceAccount
   name: jenkins 
+  namespace: webapps
+  
   
 ---
 
