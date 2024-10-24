@@ -1071,8 +1071,8 @@ grafana:
       name: Prometheus
       uid: prometheus
 	  
-  additionalDataSources:
-    - name: Loki
+    additionalDataSources:
+      name: Loki
       type: loki
       url: http://loki-loki-distributed-query-frontend.monitor:3100	  
 
