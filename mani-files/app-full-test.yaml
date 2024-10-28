@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: startboot1:1.2
+  name: startboot1:1.1
   namespace: webapps
 spec:
   selector:
     matchLabels:
-      app: startboot1:1.2
+      app: startboot1:1.1
   replicas: 1 
   template:
     metadata:
       labels:
-        app: startboot1:1.2
+        app: startboot1:1.1
     spec:
       containers:
-        - name: startboot1:1.2
-          image: asif1993/startboot1:1.2
+        - name: startboot1:1.1
+          image: asif1993/startboot1:1.1
           imagePullPolicy: Always
           ports:
             - containerPort: 8081
@@ -36,11 +36,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: startboot1:1.2
+  name: startboot1:1.1
   namespace: webapps
 spec:
   selector:
-    app: startboot1:1.2
+    app: startboot1:1.1
   ports:
     - protocol: "TCP"
       port: 8081
