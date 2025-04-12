@@ -1,0 +1,54 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: startboot1-vs
+  namespace: asif-test
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - asif-test-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/inline/test"
+      rewrite:
+        uri: "/test"        
+      route:
+        - destination:
+            host: inline-func
+            port:
+              number: 80        
+    - match:
+        - uri:
+            prefix: "/inline/goodbye"
+      rewrite:
+        uri: "/goodbye"
+      route:
+        - destination:
+            host: inline-func
+            port:
+              number: 80            
+    - match:
+        - uri:
+            prefix: "/startboot1/test"
+      rewrite:
+        uri: "/test"        
+      route:
+        - destination:
+            host: startboot1-svc
+            port:
+              number: 8081
+    - match:
+        - uri:
+            prefix: "/workverse/test"
+      rewrite:
+        uri: "/test"        
+      route:
+        - destination:
+            host: workverse-fn-svc
+            port:
+              number: 8000  
+
+
+

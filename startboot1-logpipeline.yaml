@@ -1,0 +1,22 @@
+apiVersion: telemetry.kyma-project.io/v1alpha1
+kind: LogPipeline
+metadata:
+  name: startboot1-http-logs
+spec:
+  input:
+    application:
+      namespaces:
+        include:
+          - asif-test2
+  output:
+    http:
+      dedot: false
+      port: "8081"
+      uri: "/logs"
+      host:
+        value: a7e1f2fcea6d24f2f92070a0c421395e-2042940858.eu-central-1.elb.amazonaws.com
+      user:
+        value: "not-required"
+      password:
+        value: "not-required"
+

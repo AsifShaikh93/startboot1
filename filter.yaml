@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  annotations:
+    istios.operator.kyma-project.io/managed-by-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+  creationTimestamp: "2023-12-21T13:15:08Z"
+  generation: 1
+  name: proxy-protocol
+  namespace: istio-system
+  resourceVersion: "76135042"
+  uid: aba4a598-d5eb-48e7-9f35-9a0c1c706946
+spec:
+  configPatches:
+  - applyTo: LISTENER_FILTER
+    patch:
+      operation: INSERT_FIRST
+      value:
+        name: proxy_protocol
+        typed_config:
+          '@type': type.googleapis.com/envoy.extensions.filters.listener.proxy_protocol.v3.ProxyProtocol
+  workloadSelector:
+    labels:
+      istio: ingressgateway

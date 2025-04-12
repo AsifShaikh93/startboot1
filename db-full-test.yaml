@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mysql-pv
-  namespace: webapps
+  namespace: asif-test2
 spec:
   capacity:
     storage: 1Gi
@@ -19,7 +19,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
-  namespace: webapps
+  namespace: asif-test2
   labels:
     app: mysql
     tier: database
@@ -35,8 +35,8 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
-  namespace: webapps
+  name: mysql-deploy
+  namespace: asif-test2
   labels:
     app: mysql
     tier: database
@@ -55,7 +55,9 @@ spec:
     spec:
       containers:
         - image: mysql:5.7
-          name: mysql 
+          name: mysql
+          args:
+            - "--bind-address=0.0.0.0"  
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root      
@@ -74,8 +76,8 @@ spec:
 apiVersion: v1   
 kind: Service
 metadata:
-  name: mysql
-  namespace: webapps
+  name: mysql-svc
+  namespace: asif-test2
   labels:
     app: mysql
     tier: database
@@ -86,6 +88,6 @@ spec:
   selector:
     app: mysql
     tier: database
-  clusterIP: None  
+  clusterIP: ""  
     
                                                       

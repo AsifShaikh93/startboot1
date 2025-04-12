@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: startboot1-deploy
+  namespace: asif-test2
+spec:
+  selector:
+    matchLabels:
+      app: startboot1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: startboot1
+    spec:
+      containers:
+        - name: startboot1
+          image: asif1993/startboot1:1.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SERVER_PORT
+              value: "8081"
+            - name: DB_NAME
+              value: mysql
+            - name: DB_HOST
+              value: mysql-svc
+            - name: DB_USER
+              value: root
+            - name: DB_PASSWORD
+              value: root
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: startboot1-svc
+  namespace: asif-test2
+spec:
+  selector:
+    app: startboot1
+  ports:
+    - protocol: "TCP"
+      port: 8081
+      targetPort: 8081
+  type: LoadBalancer   
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secrets
+  namespace: asif-test2
+type: Opaque
+data:
+  mysql_conn_str: cm9vdDpyb290QHRjcChteXNxbC1zdmMuYXNpZi10ZXN0Mi5zdmMuY2x1c3Rlci5sb2NhbDozMzA2KS90ZXN0ZGI=
+  
+---
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: keda-trigger-auth-mysql-secret
+  namespace: asif-test2
+spec:
+  secretTargetRef:
+  - parameter: connectionString
+    name: mysql-secrets
+    key: mysql_conn_str
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: mysql-scaledobject
+  namespace: asif-test2
+spec:
+  scaleTargetRef:
+    name: startboot1-deploy
+  triggers:
+  - type: mysql
+    metadata:
+      queryValue: "1"
+      activationQueryValue: "0.5"
+      query: "SELECT CEIL(COUNT(*) / 3) FROM messages"
+    authenticationRef:
+      name: keda-trigger-auth-mysql-secret
