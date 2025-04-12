@@ -39,6 +39,12 @@ public class ReestController {
 
 	@Autowired
 	public PersonRepository personrepository;
+
+	@PostMapping("/logs")
+        public ResponseEntity<String> receiveLogs(@RequestBody String body) {
+        System.out.println("🔥 Logs received:\n" + body);
+        return ResponseEntity.ok("Received");
+        }
 	
 	 @PostMapping("/testprsn")
 	  public Person merntest(@RequestBody Person person) {
