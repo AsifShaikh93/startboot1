@@ -47,9 +47,8 @@ public class ReestController {
         }
 
 	@GetMapping("/logs")
-        public String receiveLogs(@RequestBody String msg) {
-        System.out.println("🔥 Logs received:\n" + msg);
-        return "Received";
+        public String receiveLogs() {
+        return "GET /logs working!";
         }
 	
 	 @PostMapping("/testprsn")
