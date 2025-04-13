@@ -45,6 +45,12 @@ public class ReestController {
         System.out.println("🔥 Logs received:\n" + msg);
         return "Received";
         }
+
+	@GetMapping("/logs")
+        public String receiveLogs(@RequestBody String msg) {
+        System.out.println("🔥 Logs received:\n" + msg);
+        return "Received";
+        }
 	
 	 @PostMapping("/testprsn")
 	  public Person merntest(@RequestBody Person person) {
