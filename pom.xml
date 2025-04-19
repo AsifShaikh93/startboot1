@@ -120,6 +120,23 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			
 		</dependency>
+		<dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-sdk</artifactId>
+        <version>1.31.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-exporter-otlp</artifactId>
+        <version>1.31.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>io.opentelemetry.instrumentation</groupId>
+        <artifactId>opentelemetry-spring-boot-starter</artifactId>
+        <version>1.31.0</version>
+    </dependency>
 
 
 	</dependencies>
