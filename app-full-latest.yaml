@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: startboot1-deploy
+  namespace: asif-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: startboot1
+  template:
+    metadata:
+      labels:
+        app: startboot1
+    spec:
+      containers:
+        - name: startboot1
+          image: asif1993/startboot1:v5
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          command: ["java"]
+          args:
+            - "-javaagent:/otel/opentelemetry-javaagent.jar"
+            - "-jar"
+            - "/startboot1.jar"  # 🔁 Replace with actual jar path if different
+          env:
+            - name: SERVER_PORT
+              value: "8081"
+            - name: DB_NAME
+              value: mysql
+            - name: DB_HOST
+              value: mysql-svc
+            - name: DB_USER
+              value: root
+            - name: DB_PASSWORD
+              value: root
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://opentelemetry-demo-otelcol.otel-demo.svc.cluster.local:4317"
+            - name: OTEL_SERVICE_NAME
+              value: "startboot1-svc"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "grpc"    
+          volumeMounts:
+            - name: otel-agent
+              mountPath: /otel
+      volumes:
+        - name: otel-agent
+          emptyDir: {}
+      initContainers:
+        - name: otel-agent-downloader
+          image: curlimages/curl:latest
+          command:
+            - sh
+            - -c
+            - >
+              curl -sSL https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar -o /otel/opentelemetry-javaagent.jar
+          volumeMounts:
+            - name: otel-agent
+              mountPath: /otel
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: startboot1-svc
+  namespace: asif-test
+spec:
+  selector:
+    app: startboot1
+  ports:
+    - protocol: "TCP"
+      port: 8081
+      targetPort: 8081
+  type: LoadBalancer                

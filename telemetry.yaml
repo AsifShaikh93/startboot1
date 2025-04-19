@@ -1,0 +1,11 @@
+apiVersion: operator.kyma-project.io/v1alpha1
+kind: Module
+metadata:
+  name: telemetry
+  namespace: kyma-system
+spec:
+  channel: regular
+  name: telemetry
+  target:
+    version: 0.7.0 # or latest supported version
+

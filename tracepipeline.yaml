@@ -1,0 +1,10 @@
+apiVersion: telemetry.kyma-project.io/v1alpha1
+kind: TracePipeline
+metadata:
+  name: jaeger-pipeline
+spec:
+  output:
+    otlp:
+      endpoint:
+        value: http://opentelemetry-demo-jaeger-collector.otel-demo.svc.cluster.local:4317
+

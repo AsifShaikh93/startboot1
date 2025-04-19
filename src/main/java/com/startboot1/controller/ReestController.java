@@ -41,8 +41,8 @@ public class ReestController {
 	public PersonRepository personrepository;
 
 	@PostMapping("/logs")
-        public String receiveLogs(@RequestBody String msg) {
-        System.out.println("🔥 Logs received:\n" + msg);
+        public String receiveLogs(@RequestBody Map<String, Object> msg) {
+        System.out.println("🔥 Logs received:\n" + msg.get("message"));
         return "Received";
         }
 

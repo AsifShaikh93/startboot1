@@ -1,0 +1,32 @@
+apiVersion: telemetry.kyma-project.io/v1alpha1 
+kind: LogPipeline 
+metadata: 
+  name: logpipeline
+spec: 
+  input: 
+    application: 
+      containers: {} 
+      namespaces: {}    
+  output: 
+    http: 
+      dedot: true 
+      host: 
+        valueFrom: 
+          secretKeyRef: 
+            key: ingest-mtls-endpoint 
+            name: cloud-logging-binding 
+            namespace: default 
+      tls: 
+        cert: 
+          valueFrom: 
+            secretKeyRef: 
+              key: ingest-mtls-cert 
+              name: cloud-logging-binding 
+              namespace: default 
+        key: 
+          valueFrom: 
+            secretKeyRef: 
+              key: ingest-mtls-key 
+              name: cloud-logging-binding 
+              namespace: default 
+      uri: /customindex/kyma     

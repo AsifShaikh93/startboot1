@@ -17,7 +17,7 @@ public class OpenTelemetryConfig {
     public OpenTelemetry openTelemetry() {
         // Load values from environment
         String otlpEndpoint = System.getenv().getOrDefault("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4317");
-        String serviceName = System.getenv().getOrDefault("SERVICE_NAME", "startboot1");
+        String serviceName = System.getenv().getOrDefault("SERVICE_NAME", "startboot1-svc");
 
         // Create OTLP exporter
         OtlpGrpcSpanExporter spanExporter = OtlpGrpcSpanExporter.builder()
