@@ -15,7 +15,7 @@ public class OpenTelemetryConfig {
 
     @Bean
     public OpenTelemetry openTelemetry() {
-        // Load from environment or fallback to default
+        // Load values from environment
         String otlpEndpoint = System.getenv().getOrDefault("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4317");
         String serviceName = System.getenv().getOrDefault("SERVICE_NAME", "startboot1");
 
